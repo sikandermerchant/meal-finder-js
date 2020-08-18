@@ -98,8 +98,25 @@ function addMealToDOM(meal) {
     </div>
   `;
 }
+
+//Function to fetch random meal
+function getRandomMeal() {
+  //clear meals and headings if there
+  mealsEl.innerHTML = "";
+  resultHeading.innerHTML = "";
+
+  fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      const randomMeal = data.meals[0];
+      addMealToDOM(randomMeal);
+    });
+}
+
 //Event Listeners
 submit.addEventListener("submit", searchMeal);
+randomBtn.addEventListener("click", getRandomMeal);
 mealsEl.addEventListener("click", (e) => {
   const mealInfo = e.path.find((item) => {
     if (item.classList) {
